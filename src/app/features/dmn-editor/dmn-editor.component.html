@@ -1,0 +1,10 @@
+<div class="toolbar">
+  <button (click)="newDiagram()">New</button>
+  <input #fileInput type="file" accept=".dmn,.xml" (change)="openFile($event)" hidden>
+  <button (click)="fileInput.click()">Open…</button>
+  <button (click)="downloadXML()">Download XML</button>
+  <button (click)="uploadXML()">Upload to Server</button>
+  <span class="status">{{ status }}</span>
+</div>
+
+<div #canvas class="dmn-canvas"></div>
