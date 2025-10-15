@@ -13,7 +13,7 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('canvas', { static: true }) private canvasRef!: ElementRef<HTMLDivElement>;
   private modeler!: DmnModeler;
-  status = 'ready';
+  status = 'initialized';
 
   constructor(private uploader: DmnUploadService) {}
 
@@ -35,7 +35,7 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
   async newDiagram() {
     this.status = 'creating…';
     await this.modeler.importXML(BLANK_DMN_13);
-    this.status = 'diagram ready';
+    this.status = 'initialized';
   }
 
   async openFile(evt: Event) {
@@ -59,11 +59,11 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
 
   async downloadXML() {
     try {
-      this.status = 'exporting…';
+      this.status = 'exporting';
       const { xml } = await (this.modeler as any).saveXML({ format: true });
       const blob = new Blob([xml], { type: 'application/xml' });
       saveAs(blob, 'diagram.dmn');
-      this.status = 'downloaded diagram.dmn';
+      this.status = 'exported diagram.dmn';
     } catch (err) {
       console.error(err);
       this.status = 'export failed';
