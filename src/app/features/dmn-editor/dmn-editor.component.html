@@ -6,5 +6,10 @@
   <button (click)="uploadXML()">Upload to Server</button>
   <span class="status">{{ status }}</span>
 </div>
-
+@if (uploadResponse) {
+  <div class="upload-result">
+    <strong>Evaluation response:</strong>
+    <pre>{{ uploadResponse | json }}</pre>
+  </div>
+}
 <div #canvas class="dmn-canvas"></div>

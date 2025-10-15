@@ -24,3 +24,13 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+.upload-result {
+  background: #f6f8fa;
+  border: 1px solid #ddd;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  max-height: 200px;
+  overflow: auto;
+}

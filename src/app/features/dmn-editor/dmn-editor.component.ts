@@ -2,10 +2,14 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import DmnModeler from 'dmn-js/lib/Modeler';   // 👈 use Modeler, not default
 import { saveAs } from 'file-saver';
 import { BLANK_DMN_13 } from './blank-dmn';
+import { AUT_GAP_CLOSING } from './automatic_gap_closing-dmn'
 import { DmnUploadService } from './dmn-upload.service';
+import { JsonPipe} from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-dmn-editor',
+  imports: [JsonPipe],   
   templateUrl: './dmn-editor.component.html',
   styleUrls: ['./dmn-editor.component.scss']
 })
@@ -14,8 +18,10 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas', { static: true }) private canvasRef!: ElementRef<HTMLDivElement>;
   private modeler!: DmnModeler;
   status = 'initialized';
+  uploadResponse: any;
 
-  constructor(private uploader: DmnUploadService) {}
+  constructor(private uploader: DmnUploadService,
+    private cd: ChangeDetectorRef) {}
 
   async ngAfterViewInit() {
     this.modeler = new DmnModeler({
@@ -34,7 +40,7 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
 
   async newDiagram() {
     this.status = 'creating…';
-    await this.modeler.importXML(BLANK_DMN_13);
+    await this.modeler.importXML(AUT_GAP_CLOSING);
     this.status = 'initialized';
   }
 
@@ -71,14 +77,17 @@ export class DmnEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   async uploadXML() {
-    try {
-      this.status = 'preparing upload…';
-      const { xml } = await (this.modeler as any).saveXML({ format: true });
-      await this.uploader.upload(xml, 'diagram.dmn');
-      this.status = 'uploaded successfully';
-    } catch (err) {
-      console.error(err);
-      this.status = 'upload failed';
-    }
+  try {
+    this.status = 'preparing upload…';
+    const { xml } = await (this.modeler as any).saveXML({ format: true });
+    const response = await this.uploader.upload(xml);
+    this.uploadResponse = response;   // 👈 save server response
+    this.status = 'uploaded successfully';
+    this.cd.detectChanges(); 
+  } catch (err) {
+    console.error(err);
+    this.uploadResponse = { status: 'error', message: 'Upload failed' };
+    this.status = 'upload failed';
   }
+}
 }

@@ -1,15 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DmnUploadService {
-  private baseUrl = '/api/dmn';
+  private baseUrl = 'http://localhost:8089';
 
   constructor(private http: HttpClient) {}
 
-  async upload(xml: string, filename: string) {
-    const fd = new FormData();
-    fd.append('file', new Blob([xml], { type: 'application/xml' }), filename);
-    return this.http.post(`${this.baseUrl}/upload`, fd).toPromise();
+  async upload(xml: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/xml' });
+    return await lastValueFrom(
+      this.http.post<any>(`${this.baseUrl}/evaluate-model`, xml, { headers })
+    );
   }
 }
