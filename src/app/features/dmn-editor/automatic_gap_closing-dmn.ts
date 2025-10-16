@@ -1,5 +1,5 @@
 export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20191111/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20191111/DC/" id="definitions_automatic_gap_closing" name="Automatic Gap Closing" namespace="http://example.com/dmn">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20191111/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20191111/DC/" id="definitions_automatic_gap_closing" name="Automatic Gap Closing" namespace="http://example.com/dmn">
   <decision id="decision_automatic_gap_closing" name="Automatic Gap Closing">
     <decisionTable id="decisionTable_automatic_gap_closing" hitPolicy="FIRST">
       <input id="input_gantryStatus">
@@ -17,6 +17,11 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
           <text>maxGapLength</text>
         </inputExpression>
       </input>
+      <input id="InputClause_0f9msq7" biodi:width="273">
+        <inputExpression id="LiteralExpression_11qkpj3" typeRef="boolean">
+          <text>gantryStatus = "CLOSED" and  (gapLength &gt; maxGapLength)</text>
+        </inputExpression>
+      </input>
       <output id="output_action" name="action" typeRef="string" />
       <output id="output_rate" name="rate" typeRef="number" />
       <output id="output_description" name="description" typeRef="string" />
@@ -29,6 +34,9 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
         </inputEntry>
         <inputEntry id="inputEntry_1_3">
           <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14nasey">
+          <text>true</text>
         </inputEntry>
         <outputEntry id="outputEntry_1_1">
           <text>"OPEN_GANTRY"</text>
@@ -50,6 +58,9 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
         <inputEntry id="inputEntry_2_3">
           <text>-</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0uhtv7s">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="outputEntry_2_1">
           <text>"CLOSE_GANTRY"</text>
         </outputEntry>
@@ -70,6 +81,9 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
         <inputEntry id="inputEntry_3_3">
           <text>-</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ax0onp">
+          <text></text>
+        </inputEntry>
         <outputEntry id="outputEntry_3_1">
           <text>"OPEN_GANTRY"</text>
         </outputEntry>
@@ -89,6 +103,9 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
         </inputEntry>
         <inputEntry id="inputEntry_4_3">
           <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_025jp6e">
+          <text></text>
         </inputEntry>
         <outputEntry id="outputEntry_4_1">
           <text>"OPEN_GANTRY"</text>
