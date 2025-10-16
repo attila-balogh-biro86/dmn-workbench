@@ -51,7 +51,7 @@ export const AUT_GAP_CLOSING = `<?xml version="1.0" encoding="UTF-8"?>
           <text>-</text>
         </inputEntry>
         <outputEntry id="outputEntry_2_1">
-          <text>"LEAVE_CLOSED"</text>
+          <text>"CLOSE_GANTRY"</text>
         </outputEntry>
         <outputEntry id="outputEntry_2_2">
           <text>null</text>
