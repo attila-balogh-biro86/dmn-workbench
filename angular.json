@@ -62,6 +62,13 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "host": "0.0.0.0",
+            "allowedHosts": [
+              ".ngrok-free.app"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "dmn-workbench:build:production"
